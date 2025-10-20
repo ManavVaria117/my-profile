@@ -1,0 +1,16 @@
+header {
+    position: fixed;   /* makes navbar stick to top */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 50;       /* stays above content */
+    transition: background-color 0.3s, backdrop-filter 0.3s, padding 0.3s;
+    background-color: rgba(11,18,32,0.6); /* slightly transparent */
+    backdrop-filter: blur(10px);          /* nice blur effect */
+  }
+  
+  header.scrolled {
+    background-color: rgba(11,18,32,0.95); /* solid on scroll */
+    padding: 0.5rem 1rem;                  /* optional shrink */
+  }
+  
