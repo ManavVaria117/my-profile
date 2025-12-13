@@ -151,19 +151,11 @@
         }
 
         .skill-card {
-            transition: background .3s ease, box-shadow .3s ease;
-            position: relative;
-            z-index: 1;
-            /* transform managed by JS during interaction */
-        }
-
-        .skill-card.is-resetting {
-            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), background .3s ease, box-shadow .3s ease;
+            transition: transform .2s ease, background .3s ease, box-shadow .3s ease;
         }
 
         .skill-card:hover {
             box-shadow: 0 12px 30px -12px rgba(20, 184, 166, .25);
-            z-index: 10;
         }
 
         @keyframes float {
@@ -709,235 +701,217 @@
 
         <!-- Skills Section -->
         <section id="skills" class="py-20 bg-gray-900 scroll-mt-24">
-            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 max-w-5xl mx-auto" id="skills-grid">
-
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="MERN"
-                    data-categories="frontend backend">
-                    <img src="https://cdn.simpleicons.org/react/61DAFB" alt="MERN Stack (React)" width="64" height="64"
-                        loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">MERN Stack</p>
-                </div>
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="MEAN"
-                    data-categories="frontend backend">
-                    <img src="https://cdn.simpleicons.org/angular/DD0031" alt="MEAN Stack (Angular)" width="64"
-                        height="64" loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">MEAN Stack</p>
+            <div class="container mx-auto px-6">
+                <!-- Header -->
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-white mb-4">Technical Expertise</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">
+                        A focused stack optimizing for <span class="text-teal-400">performance</span>, <span
+                            class="text-teal-400">scalability</span>, and <span class="text-purple-400">AI
+                            integration</span>.
+                    </p>
                 </div>
 
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="React" data-categories="frontend">
-                    <img src="https://cdn.simpleicons.org/react/61DAFB" alt="React" width="64" height="64"
-                        loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">React</p>
-                </div>
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="JavaScript" data-categories="frontend">
-                    <img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript" width="64" height="64"
-                        loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">JavaScript</p>
-                </div>
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="Tailwind CSS"
-                    data-categories="frontend">
-                    <img src="https://cdn.simpleicons.org/tailwindcss/06B6D4" alt="Tailwind CSS" width="64" height="64"
-                        loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">Tailwind CSS</p>
-                </div>
-
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="Node.js" data-categories="backend">
-                    <img src="https://cdn.simpleicons.org/nodedotjs/339933" alt="Node.js" width="64" height="64"
-                        loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">Node.js</p>
-                </div>
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="Express" data-categories="backend">
-                    <img src="https://cdn.simpleicons.org/express/000000" alt="Express.js" width="64" height="64"
-                        loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">Express.js</p>
-                </div>
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="Python" data-categories="backend ai">
-                    <img src="https://cdn.simpleicons.org/python/3776AB" alt="Python" width="64" height="64"
-                        loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">Python (Core)</p>
-                </div>
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="Python Frameworks"
-                    data-categories="backend">
-                    <img src="https://cdn.simpleicons.org/python/3776AB" alt="Python (Django/Flask)" width="64"
-                        height="64" loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">Django / Flask</p>
-                </div>
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="C++" data-categories="backend">
-                    <img src="https://cdn.simpleicons.org/cplusplus/00599C" alt="C++" width="64" height="64"
-                        loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">C++</p>
-                </div>
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="REST APIs" data-categories="backend">
-                    <img src="https://cdn.simpleicons.org/apachetomcat/F8DC75" alt="REST APIs" width="64" height="64"
-                        loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">REST APIs</p>
-                </div>
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="WebSockets" data-categories="backend">
-                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/openjdk.svg" alt="Java" width="64"
-                        height="64" loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">WebSockets</p>
-                </div>
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="Java" data-categories="backend">
-                    <img src="https://cdn.simpleicons.org/intellijidea/000000" alt="Java / IntelliJ" width="64"
-                        height="64" loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">Java</p>
+                <!-- Skills Filter Tabs -->
+                <div class="flex flex-wrap justify-center gap-3 mb-12">
+                    <button
+                        class="tab px-5 py-2 rounded-full bg-gray-800 text-gray-400 text-sm font-medium hover:text-white hover:bg-gray-700 transition ring-1 ring-white/5 data-[active=true]:bg-teal-500/10 data-[active=true]:text-teal-400 data-[active=true]:ring-teal-500/50"
+                        data-skill-filter="all" aria-selected="true" role="tab">All</button>
+                    <button
+                        class="tab px-5 py-2 rounded-full bg-gray-800 text-gray-400 text-sm font-medium hover:text-white hover:bg-gray-700 transition ring-1 ring-white/5 data-[active=true]:bg-blue-500/10 data-[active=true]:text-blue-400 data-[active=true]:ring-blue-500/50"
+                        data-skill-filter="ai-ml" aria-selected="false" role="tab">AI / ML</button>
+                    <button
+                        class="tab px-5 py-2 rounded-full bg-gray-800 text-gray-400 text-sm font-medium hover:text-white hover:bg-gray-700 transition ring-1 ring-white/5 data-[active=true]:bg-purple-500/10 data-[active=true]:text-purple-400 data-[active=true]:ring-purple-500/50"
+                        data-skill-filter="genai" aria-selected="false" role="tab">✨ GenAI & LLMs</button>
+                    <button
+                        class="tab px-5 py-2 rounded-full bg-gray-800 text-gray-400 text-sm font-medium hover:text-white hover:bg-gray-700 transition ring-1 ring-white/5 data-[active=true]:bg-teal-500/10 data-[active=true]:text-teal-400 data-[active=true]:ring-teal-500/50"
+                        data-skill-filter="backend" aria-selected="false" role="tab">Backend & APIs</button>
+                    <button
+                        class="tab px-5 py-2 rounded-full bg-gray-800 text-gray-400 text-sm font-medium hover:text-white hover:bg-gray-700 transition ring-1 ring-white/5 data-[active=true]:bg-teal-500/10 data-[active=true]:text-teal-400 data-[active=true]:ring-teal-500/50"
+                        data-skill-filter="frontend" aria-selected="false" role="tab">Full Stack</button>
+                    <button
+                        class="tab px-5 py-2 rounded-full bg-gray-800 text-gray-400 text-sm font-medium hover:text-white hover:bg-gray-700 transition ring-1 ring-white/5 data-[active=true]:bg-teal-500/10 data-[active=true]:text-teal-400 data-[active=true]:ring-teal-500/50"
+                        data-skill-filter="databases" aria-selected="false" role="tab">Databases</button>
+                    <button
+                        class="tab px-5 py-2 rounded-full bg-gray-800 text-gray-400 text-sm font-medium hover:text-white hover:bg-gray-700 transition ring-1 ring-white/5 data-[active=true]:bg-teal-500/10 data-[active=true]:text-teal-400 data-[active=true]:ring-teal-500/50"
+                        data-skill-filter="devops" aria-selected="false" role="tab">DevOps & Cloud</button>
                 </div>
 
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="TensorFlow" data-categories="ai">
-                    <img src="https://cdn.simpleicons.org/tensorflow/FF6F00" alt="TensorFlow (AI/ML)" width="64"
-                        height="64" loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">TensorFlow</p>
-                </div>
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="Keras" data-categories="ai">
-                    <img src="https://cdn.simpleicons.org/keras/D00000" alt="Keras" width="64" height="64"
-                        loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">Keras</p>
-                </div>
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="Scikit-learn" data-categories="ai">
-                    <img src="https://cdn.simpleicons.org/scikitlearn/F7931E" alt="Scikit-learn" width="64" height="64"
-                        loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">Scikit-learn</p>
-                </div>
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="PyTorch" data-categories="ai">
-                    <img src="https://cdn.simpleicons.org/pytorch/EE4C2C" alt="PyTorch" width="64" height="64"
-                        loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">PyTorch</p>
-                </div>
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="Hugging Face" data-categories="ai">
-                    <img src="https://cdn.simpleicons.org/huggingface/FFB400" alt="Hugging Face" width="64" height="64"
-                        loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">Hugging Face (NLP)</p>
-                </div>
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="LangChain" data-categories="ai backend">
-                    <img src="https://cdn.simpleicons.org/python/3776AB" alt="LangChain" width="64" height="64"
-                        loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">LangChain</p>
-                </div>
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="Data Viz" data-categories="ai">
-                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/d3dotjs.svg" alt="Data Visualization"
-                        width="64" height="64" loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">Data Visualization</p>
-                </div>
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="NumPy/Seaborn" data-categories="ai">
-                    <img src="https://cdn.simpleicons.org/numpy/013243" alt="NumPy / Seaborn" width="64" height="64"
-                        loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">NumPy / Seaborn</p>
-                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-5 max-w-6xl mx-auto" id="skills-grid">
 
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="MongoDB" data-categories="databases">
-                    <img src="https://cdn.simpleicons.org/mongodb/47A248" alt="MongoDB" width="64" height="64"
-                        loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">MongoDB</p>
-                </div>
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="Mongoose"
-                    data-categories="databases backend">
-                    <img src="https://cdn.simpleicons.org/mongodb/47A248" alt="Mongoose ORM" width="64" height="64"
-                        loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">Mongoose (ORM)</p>
-                </div>
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="MySQL" data-categories="databases">
-                    <img src="https://cdn.simpleicons.org/mysql/4479A1" alt="MySQL" width="64" height="64"
-                        loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">MySQL</p>
-                </div>
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="Firebase" data-categories="databases">
-                    <img src="https://cdn.simpleicons.org/firebase/FFCA28" alt="Firebase (Cloud DB)" width="64"
-                        height="64" loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">Cloud DB (Firebase)</p>
-                </div>
+                    <!-- === AI / ML === -->
+                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-blue-500/30"
+                        data-skill="Python" data-categories="ai-ml backend">
+                        <img src="https://cdn.simpleicons.org/python/3776AB" class="h-12 w-12 mb-3 skill-icon"
+                            alt="Python">
+                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">Python</p>
+                    </div>
+                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-blue-500/30"
+                        data-skill="TensorFlow" data-categories="ai-ml">
+                        <img src="https://cdn.simpleicons.org/tensorflow/FF6F00" class="h-12 w-12 mb-3 skill-icon"
+                            alt="TensorFlow">
+                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">TensorFlow</p>
+                    </div>
+                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-blue-500/30"
+                        data-skill="PyTorch" data-categories="ai-ml">
+                        <img src="https://cdn.simpleicons.org/pytorch/EE4C2C" class="h-12 w-12 mb-3 skill-icon"
+                            alt="PyTorch">
+                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">PyTorch</p>
+                    </div>
+                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-blue-500/30"
+                        data-skill="Scikit-learn" data-categories="ai-ml">
+                        <img src="https://cdn.simpleicons.org/scikitlearn/F7931E" class="h-12 w-12 mb-3 skill-icon"
+                            alt="Scikit-learn">
+                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">Scikit-learn</p>
+                    </div>
+                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-blue-500/30"
+                        data-skill="OpenCV" data-categories="ai-ml">
+                        <img src="https://cdn.simpleicons.org/opencv/5C3EE8" class="h-12 w-12 mb-3 skill-icon"
+                            alt="OpenCV">
+                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">OpenCV</p>
+                    </div>
+                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-blue-500/30"
+                        data-skill="NumPy / Pandas" data-categories="ai-ml">
+                        <img src="https://cdn.simpleicons.org/pandas/150458" class="h-12 w-12 mb-3 skill-icon"
+                            alt="NumPy/Pandas">
+                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">NumPy / Pandas</p>
+                    </div>
 
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="Git/GitHub" data-categories="devops">
-                    <img src="https://cdn.simpleicons.org/github/181717" alt="Git/GitHub" width="64" height="64"
-                        loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">Git / GitHub</p>
-                </div>
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="Docker" data-categories="devops">
-                    <img src="https://cdn.simpleicons.org/docker/2496ED" alt="Docker" width="64" height="64"
-                        loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">Docker</p>
-                </div>
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="MLflow" data-categories="devops ai">
-                    <img src="https://cdn.simpleicons.org/mlflow/009B87" alt="MLflow" width="64" height="64"
-                        loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">MLflow (MLOps)</p>
-                </div>
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="CDN" data-categories="devops">
-                    <img src="https://cdn.simpleicons.org/cloudflare/F38020" alt="CDN" width="64" height="64"
-                        loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">CDN / Caching</p>
-                </div>
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="Load Balancing"
-                    data-categories="devops">
-                    <img src="https://cdn.simpleicons.org/nginx/009639" alt="Load Balancing" width="64" height="64"
-                        loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">Load Balancing</p>
-                </div>
-                <div class="skill-card group flex flex-col items-center p-6 bg-gray-800 rounded-lg transition-transform gradient-border"
-                    role="button" tabindex="0" aria-pressed="false" data-skill="Puppeteer" data-categories="devops">
-                    <img src="https://cdn.simpleicons.org/puppeteer/40B5A4" alt="Puppeteer (Automation)" width="64"
-                        height="64" loading="lazy" decoding="async"
-                        class="h-16 w-16 mb-4 skill-icon transition-transform group-hover:scale-110">
-                    <p class="font-semibold text-white">Automation (Puppeteer)</p>
+                    <!-- === GenAI (Highlighted) === -->
+                    <div class="skill-card genai-card group flex flex-col items-center p-5 bg-purple-900/10 rounded-xl border border-purple-500/20 hover:border-purple-400 hover:shadow-[0_0_20px_-5px_rgba(168,85,247,0.3)]"
+                        data-skill="LLMs" data-categories="genai ai-ml">
+                        <i data-lucide="sparkles" class="w-12 h-12 mb-3 text-purple-400"></i>
+                        <p class="font-medium text-purple-200 group-hover:text-white text-sm">LLMs</p>
+                    </div>
+                    <div class="skill-card genai-card group flex flex-col items-center p-5 bg-purple-900/10 rounded-xl border border-purple-500/20 hover:border-purple-400 hover:shadow-[0_0_20px_-5px_rgba(168,85,247,0.3)]"
+                        data-skill="LangChain" data-categories="genai ai-ml">
+                        <i data-lucide="link" class="w-12 h-12 mb-3 text-purple-400"></i>
+                        <p class="font-medium text-purple-200 group-hover:text-white text-sm">LangChain</p>
+                    </div>
+                    <div class="skill-card genai-card group flex flex-col items-center p-5 bg-purple-900/10 rounded-xl border border-purple-500/20 hover:border-purple-400 hover:shadow-[0_0_20px_-5px_rgba(168,85,247,0.3)]"
+                        data-skill="Hugging Face" data-categories="genai ai-ml">
+                        <i data-lucide="smile" class="w-12 h-12 mb-3 text-yellow-400"></i>
+                        <p class="font-medium text-purple-200 group-hover:text-white text-sm">Hugging Face</p>
+                    </div>
+                    <div class="skill-card genai-card group flex flex-col items-center p-5 bg-purple-900/10 rounded-xl border border-purple-500/20 hover:border-purple-400 hover:shadow-[0_0_20px_-5px_rgba(168,85,247,0.3)]"
+                        data-skill="RAG" data-categories="genai">
+                        <i data-lucide="file-search" class="w-12 h-12 mb-3 text-purple-400"></i>
+                        <p class="font-medium text-purple-200 group-hover:text-white text-sm">RAG Pipelines</p>
+                    </div>
+
+                    <!-- === Backend === -->
+                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                        data-skill="Nodes.js" data-categories="backend">
+                        <img src="https://cdn.simpleicons.org/nodedotjs/339933" class="h-12 w-12 mb-3 skill-icon"
+                            alt="Node.js">
+                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">Node.js</p>
+                    </div>
+                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                        data-skill="FastAPI" data-categories="backend ai-ml">
+                        <img src="https://cdn.simpleicons.org/fastapi/009688" class="h-12 w-12 mb-3 skill-icon"
+                            alt="FastAPI">
+                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">FastAPI</p>
+                    </div>
+                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                        data-skill="Express.js" data-categories="backend">
+                        <img src="https://cdn.simpleicons.org/express/000000" class="h-12 w-12 mb-3 skill-icon"
+                            alt="Express">
+                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">Express.js</p>
+                    </div>
+                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                        data-skill="REST APIs" data-categories="backend">
+                        <img src="https://cdn.simpleicons.org/postman/FF6C37" class="h-12 w-12 mb-3 skill-icon"
+                            alt="REST APIs">
+                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">REST APIs</p>
+                    </div>
+
+                    <!-- === Full Stack === -->
+                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                        data-skill="React" data-categories="frontend">
+                        <img src="https://cdn.simpleicons.org/react/61DAFB" class="h-12 w-12 mb-3 skill-icon"
+                            alt="React">
+                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">React</p>
+                    </div>
+                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                        data-skill="MERN Stack" data-categories="frontend backend">
+                        <img src="https://cdn.simpleicons.org/mongodb/47A248" class="h-12 w-12 mb-3 skill-icon"
+                            alt="MERN">
+                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">MERN Stack</p>
+                    </div>
+                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                        data-skill="Tailwind" data-categories="frontend">
+                        <img src="https://cdn.simpleicons.org/tailwindcss/06B6D4" class="h-12 w-12 mb-3 skill-icon"
+                            alt="Tailwind">
+                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">Tailwind CSS</p>
+                    </div>
+                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                        data-skill="JavaScript" data-categories="frontend">
+                        <img src="https://cdn.simpleicons.org/javascript/F7DF1E" class="h-12 w-12 mb-3 skill-icon"
+                            alt="JavaScript">
+                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">JavaScript</p>
+                    </div>
+
+                    <!-- === Databases === -->
+                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                        data-skill="MongoDB" data-categories="databases">
+                        <img src="https://cdn.simpleicons.org/mongodb/47A248" class="h-12 w-12 mb-3 skill-icon"
+                            alt="MongoDB">
+                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">MongoDB</p>
+                    </div>
+                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                        data-skill="Vector DBs" data-categories="databases genai">
+                        <i data-lucide="database" class="w-12 h-12 mb-3 text-red-400"></i>
+                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">Vector DBs</p>
+                    </div>
+                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                        data-skill="MySQL" data-categories="databases">
+                        <img src="https://cdn.simpleicons.org/mysql/4479A1" class="h-12 w-12 mb-3 skill-icon"
+                            alt="MySQL">
+                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">MySQL</p>
+                    </div>
+                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                        data-skill="Firebase" data-categories="databases">
+                        <img src="https://cdn.simpleicons.org/firebase/FFCA28" class="h-12 w-12 mb-3 skill-icon"
+                            alt="Firebase">
+                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">Firebase</p>
+                    </div>
+
+                    <!-- === DevOps & Cloud === -->
+                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                        data-skill="Docker" data-categories="devops">
+                        <img src="https://cdn.simpleicons.org/docker/2496ED" class="h-12 w-12 mb-3 skill-icon"
+                            alt="Docker">
+                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">Docker</p>
+                    </div>
+                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                        data-skill="AWS" data-categories="devops">
+                        <i data-lucide="cloud" class="w-12 h-12 mb-3 text-[#FF9900]"></i>
+                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">AWS</p>
+                    </div>
+                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                        data-skill="GitHub Actions" data-categories="devops">
+                        <img src="https://cdn.simpleicons.org/githubactions/2088FF" class="h-12 w-12 mb-3 skill-icon"
+                            alt="CI/CD">
+                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">GitHub Actions</p>
+                    </div>
+                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                        data-skill="MLflow" data-categories="devops ai-ml">
+                        <img src="https://cdn.simpleicons.org/mlflow/009B87" class="h-12 w-12 mb-3 skill-icon"
+                            alt="MLflow">
+                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">MLflow</p>
+                    </div>
+                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                        data-skill="Deployment" data-categories="devops">
+                        <i data-lucide="triangle" class="w-12 h-12 mb-3 text-white"></i>
+                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">Vercel / Render</p>
+                    </div>
+                    <!-- Optional Automation -->
+                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                        data-skill="Puppeteer" data-categories="devops">
+                        <img src="https://cdn.simpleicons.org/puppeteer/40B5A4" class="h-12 w-12 mb-3 skill-icon"
+                            alt="Puppeteer">
+                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">Puppeteer</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1296,45 +1270,35 @@
         });
 
         // Interactive skill cards
-        const skillCards = document.querySelectorAll('.skill-card');
-        // Smart Watch Effect for Skills Grid
+        // === Smart Watch / Apple Grid Style Physics Effect ===
         const skillsGrid = document.getElementById('skills-grid');
+        // Re-select all cards (tabs might filter them, so this might need re-running on tab switch, but for now we target all)
+        let skillCards = document.querySelectorAll('.skill-card');
 
-        // Configuration
-        const MAX_DISTANCE = 300; // Radius of effect
-        const MAX_SCALE = 1.35;   // Max magnification
-        const ATTRACTION_STRENGTH = 0.2; // How much they pull towards cursor
+        // Physics Configuration
+        const MAX_DISTANCE = 300;     // px radius of effect
+        const MAX_SCALE = 1.35;       // Max magnification
+        const ATTRACTION_STRENGTH = 0.15; // How much cards move towards cursor
 
-        let mouseX = -9999, mouseY = -9999;
+        let mouseX = 0;
+        let mouseY = 0;
         let isHoveringGrid = false;
-        let rafid = null;
+        let rafId = null;
 
-        if (skillsGrid && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            skillsGrid.addEventListener('mousemove', (e) => {
-                isHoveringGrid = true;
-                const rect = skillsGrid.getBoundingClientRect();
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                if (!rafid) rafid = requestAnimationFrame(updatePhysics);
-            });
-
-            skillsGrid.addEventListener('mouseleave', () => {
-                isHoveringGrid = false;
-                if (rafid) {
-                    cancelAnimationFrame(rafid);
-                    rafid = null;
-                }
-                // Reset all cards
-                skillCards.forEach(card => {
-                    card.classList.add('is-resetting');
-                    card.style.transform = '';
-                    setTimeout(() => card.classList.remove('is-resetting'), 600);
-                });
-            });
-        }
-
+        // Update Physics Loop
         function updatePhysics() {
-            if (!isHoveringGrid) return;
+            if (!isHoveringGrid) {
+                // If not hovering, ensure everything resets cleanly once then stop
+                skillCards.forEach(card => {
+                    if (card.style.transform) {
+                        // Add transition for smooth return
+                        card.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background 0.2s';
+                        card.style.transform = '';
+                        card.style.zIndex = '1';
+                    }
+                });
+                return;
+            }
 
             skillCards.forEach(card => {
                 const rect = card.getBoundingClientRect();
@@ -1345,42 +1309,89 @@
                 const distY = mouseY - centerY;
                 const distance = Math.sqrt(distX * distX + distY * distY);
 
+                // Clear return transition interacting while physics is active
+                card.style.transition = 'background 0.2s'; // Keep bg transition, remove transform transition for performance
+
                 if (distance < MAX_DISTANCE) {
-                    // Calculate scale based on distance (Gaussian-ish falloff)
+                    // Calculate influence (0 to 1) based on distance
                     const proximity = Math.max(0, 1 - (distance / MAX_DISTANCE));
+                    // Parabolic curve for smoother falloff
                     const scale = 1 + (MAX_SCALE - 1) * Math.pow(proximity, 2);
 
-                    // Attraction: move card slightly towards cursor
+                    // Magnetic attraction
                     const moveX = distX * ATTRACTION_STRENGTH * proximity;
                     const moveY = distY * ATTRACTION_STRENGTH * proximity;
 
-                    card.classList.remove('is-resetting');
                     card.style.transform = `translate(${moveX}px, ${moveY}px) scale(${scale})`;
-                    // Dynamic z-index
-                    card.style.zIndex = Math.round(scale * 10);
+                    card.style.zIndex = Math.round(scale * 10).toString(); // Bring closer items to top
                 } else {
-                    if (card.style.transform) {
-                        card.classList.add('is-resetting');
-                        card.style.transform = '';
-                        card.style.zIndex = '1';
-                    }
+                    card.style.transform = '';
+                    card.style.zIndex = '1';
                 }
             });
 
-            rafid = requestAnimationFrame(updatePhysics);
+            rafId = requestAnimationFrame(updatePhysics);
         }
 
-        // Retain click-to-copy functionality
+        // Initialize Grid Events
+        if (skillsGrid) {
+            skillsGrid.addEventListener('mouseenter', () => {
+                isHoveringGrid = true;
+                // update list in case of dynamic changes (filtering)
+                skillCards = document.querySelectorAll('.skill-card'); // Refresh list if needed
+                rafId = requestAnimationFrame(updatePhysics);
+            });
+
+            skillsGrid.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            skillsGrid.addEventListener('mouseleave', () => {
+                isHoveringGrid = false;
+                cancelAnimationFrame(rafId);
+                // Run one last update to trigger the reset code in updatePhysics or manually reset
+                requestAnimationFrame(() => {
+                    skillCards.forEach(card => {
+                        card.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background 0.2s';
+                        card.style.transform = '';
+                        card.style.zIndex = '1';
+                    });
+                });
+            });
+        }
+
+        // Maintain Click-to-Copy and Ripple independently
         skillCards.forEach(card => {
+            // Ripple Effect (keeping separate from physics transform)
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.background = `radial-gradient(200px 200px at ${x}px ${y}px, rgba(20,184,166,0.15), rgba(31, 41, 55, 0.5) 80%)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.background = ''; // Resets to CSS default
+            });
+
+            // Click to copy
             const name = card.dataset.skill || 'Skill';
             const copy = async () => {
-                try { await navigator.clipboard.writeText(name); } catch { }
+                try {
+                    await navigator.clipboard.writeText(name);
+
+                    // Optional: Visual feedback could be added here
+                    const originalBg = card.style.background;
+                    card.style.background = 'rgba(20, 184, 166, 0.4)'; // Flash teal
+                    setTimeout(() => {
+                        card.style.background = originalBg;
+                    }, 200);
+
+                } catch { }
             };
             card.addEventListener('click', copy);
-            card.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); copy(); }
-            });
         });
+
         // Simple tilt effect for project cards (disabled for reduced motion)
         if (!reduceMotion) {
             document.querySelectorAll('.tilt-card').forEach(card => {
@@ -1842,7 +1853,7 @@
 
         // Skills tabs filtering and improved toast near card
         const tabs = document.querySelectorAll('.tab');
-        // skillsGrid declared above
+        // skillsGrid is already defined above
         const allSkillCards = skillsGrid ? skillsGrid.querySelectorAll('.skill-card') : [];
         let activeFilter = 'all';
         const setFilter = (filter) => {
