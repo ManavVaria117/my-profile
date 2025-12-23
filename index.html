@@ -1885,6 +1885,7 @@
                 modalDemoEl.style.cursor = '';
                 modalDemoEl.setAttribute('aria-label', 'Open live demo');
             }
+            modalSourceEl.href = data.source || '#';
             modalEl.setAttribute('aria-hidden', 'false');
             const targetHash = `#project-${projectId}`;
             if (window.location.hash !== targetHash) {
