@@ -380,10 +380,11 @@
             margin: 5vh auto;
             max-width: 1000px;
             width: calc(100% - 2rem);
-            background: rgba(17, 24, 39, .92);
-            border: 1px solid rgba(255, 255, 255, .08);
+            background: #ffffff;
+            /* Light mode default */
+            border: 1px solid #e2e8f0;
             border-radius: 16px;
-            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, .6);
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.15);
             transform: translateY(12px);
             opacity: 0;
             transition: transform .25s ease, opacity .25s ease;
@@ -400,6 +401,12 @@
         .modal[aria-hidden="false"] .modal-content {
             transform: translateY(0);
             opacity: 1;
+        }
+
+        .dark .modal-content {
+            background: rgba(17, 24, 39, .95);
+            border: 1px solid rgba(255, 255, 255, .08);
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, .6);
         }
 
         .modal-close {
@@ -557,132 +564,203 @@
     </style>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
-                    fontFamily: {
-                        inter: ['Inter', 'sans-serif'],
+                    colors: {
+                        slate: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            950: '#020617',
+                        }
                     },
-                },
-            },
-        };
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
     </script>
 </head>
 
-<body class="bg-gray-900 text-gray-200">
+<body
+    class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-300 antialiased selection:bg-teal-500 selection:text-white overflow-x-hidden">
+    <!-- Fixed Background -->
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <!-- Dark Mode Gradients -->
+        <div
+            class="hidden dark:block absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-cyan-500/20 rounded-full blur-[120px] animate-pulse">
+        </div>
+        <div class="hidden dark:block absolute bottom-[10%] right-[-5%] w-[600px] h-[600px] bg-purple-600/20 rounded-full blur-[120px] animate-pulse"
+            style="animation-delay: 2s;"></div>
+
+        <!-- Light Mode Gradients -->
+        <div
+            class="dark:hidden absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-400/30 rounded-full blur-[100px] animate-pulse">
+        </div>
+        <div class="dark:hidden absolute bottom-[10%] right-[-5%] w-[600px] h-[600px] bg-purple-400/30 rounded-full blur-[100px] animate-pulse"
+            style="animation-delay: 2s;"></div>
+
+        <div
+            class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMTQ4LCAxNjMsIDE4NCwgMC4xKSIvPjwvc3ZnPg==')] opacity-40">
+        </div>
+    </div>
 
     <canvas id="bg-canvas"></canvas>
 
-    <!-- Header -->
-    <header class="fixed top-0 left-0 right-0 z-50 glass-effect ">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-white">Manav Varia</a>
-            <nav class="hidden md:flex space-x-8" role="navigation" aria-label="Primary">
-                <a href="#" class="hover:text-teal-400 transition-colors">Home</a>
-                <a href="#about" class="hover:text-teal-400 transition-colors">About</a>
-                <a href="#skills" class="hover:text-teal-400 transition-colors">Skills</a>
-                <a href="#projects" class="hover:text-teal-400 transition-colors">Projects</a>
-                <a href="#contact" class="hover:text-teal-400 transition-colors">Contact</a>
-            </nav>
-            <button id="mobile-menu-button" class="md:hidden" aria-label="Open menu" aria-controls="mobile-menu"
-                aria-expanded="false">
-                <i data-lucide="menu"></i>
-            </button>
+    <!-- Navigation -->
+    <nav
+        class="fixed w-full backdrop-blur-lg bg-white/70 dark:bg-[#030014]/30 border-b border-slate-200 dark:border-white/10 z-50 transition-colors duration-300">
+        <div class="max-w-6xl mx-auto px-6 flex justify-between items-center h-16">
+            <a href="#"
+                class="font-bold text-xl bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent tracking-tight">Manav
+                Varia</a>
+            <div class="flex items-center gap-6">
+                <ul class="hidden md:flex gap-8 font-medium text-slate-600 dark:text-slate-300">
+                    <li><a href="#about"
+                            class="relative group py-1 hover:text-blue-600 dark:hover:text-cyan-400 transition-colors">About<span
+                                class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 dark:bg-cyan-400 group-hover:w-full transition-all duration-300"></span></a>
+                    </li>
+                    <li><a href="#skills"
+                            class="relative group py-1 hover:text-blue-600 dark:hover:text-cyan-400 transition-colors">Skills<span
+                                class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 dark:bg-cyan-400 group-hover:w-full transition-all duration-300"></span></a>
+                    </li>
+                    <li><a href="#projects"
+                            class="relative group py-1 hover:text-blue-600 dark:hover:text-cyan-400 transition-colors">Projects<span
+                                class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 dark:bg-cyan-400 group-hover:w-full transition-all duration-300"></span></a>
+                    </li>
+                    <li><a href="#contact"
+                            class="relative group py-1 hover:text-blue-600 dark:hover:text-cyan-400 transition-colors">Contact<span
+                                class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 dark:bg-cyan-400 group-hover:w-full transition-all duration-300"></span></a>
+                    </li>
+                </ul>
+
+                <!-- Theme Toggle Button -->
+                <button id="theme-toggle"
+                    class="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                    aria-label="Toggle Dark Mode">
+                    <!-- Sun Icon (for Dark Mode) -->
+                    <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                    <!-- Moon Icon (for Light Mode) -->
+                    <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
+                </button>
+
+                <button id="mobile-menu-button"
+                    class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-300 md:hidden"
+                    aria-label="Toggle menu">
+                    <i data-lucide="menu" class="w-5 h-5 text-slate-900 dark:text-white"></i>
+                </button>
+            </div>
         </div>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-gray-800" role="navigation" aria-label="Mobile">
-            <a href="#about" class="block py-2 px-4 text-sm hover:bg-gray-700">About</a>
-            <a href="#skills" class="block py-2 px-4 text-sm hover:bg-gray-700">Skills</a>
-            <a href="#projects" class="block py-2 px-4 text-sm hover:bg-gray-700">Projects</a>
-            <a href="#testimonials" class="block py-2 px-4 text-sm hover:bg-gray-700">Testimonials</a>
-            <a href="#contact" class="block py-2 px-4 text-sm hover:bg-gray-700">Contact</a>
-        </div>
-        <div id="scroll-progress"
-            class="absolute bottom-0 left-0 w-0 bg-gradient-to-r from-teal-400 via-cyan-400 to-purple-500"></div>
+    </nav>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu"
+        class="hidden md:hidden bg-slate-50/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-white/10"
+        role="navigation" aria-label="Mobile">
+        <a href="#about"
+            class="block py-3 px-6 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">About</a>
+        <a href="#skills"
+            class="block py-3 px-6 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Skills</a>
+        <a href="#projects"
+            class="block py-3 px-6 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Projects</a>
+        <a href="#contact"
+            class="block py-3 px-6 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Contact</a>
+    </div>
+    <div id="scroll-progress"
+        class="absolute bottom-0 left-0 w-0 bg-gradient-to-r from-teal-400 via-cyan-400 to-purple-500"></div>
     </header>
 
-    <main class="pt-20">
-        <!-- Hero Section -->
-        <section id="home"
-            class="relative min-h-screen flex items-center bg-gray-900 bg-grid-teal-500/[0.12] overflow-hidden">
-            <div
-                class="glow -top-32 left-1/2 -translate-x-1/2 w-[70vw] h-[70vw] bg-gradient-to-r from-teal-500/30 to-purple-600/30 rounded-full">
+    <main class="flex-grow pt-16">
+        <section class="relative min-h-screen flex items-center overflow-hidden bg-transparent pt-28 md:pt-0">
+            <!-- Decorative Blobs matching target -->
+            <div class="absolute -top-40 -left-40 w-[500px] h-[500px] bg-indigo-500/20 rounded-full blur-[120px]"></div>
+            <div class="absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-teal-400/20 rounded-full blur-[120px]">
             </div>
-            <div class="spotlight" id="spotlight"></div>
-            <div class="hero-blob" id="hero-blob"></div>
-            <div class="container mx-auto px-6 text-center relative">
-                <span
-                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 ring-1 ring-white/10 text-xs md:text-sm text-gray-300 badge-glow">
-                    <span class="inline-block h-2 w-2 rounded-full bg-teal-400 animate-pulse"></span>
-                    Available for freelance & internships
-                </span>
-                <h1 class="mt-4 text-5xl md:text-7xl font-extrabold leading-tight hero-title">
-                    I build <span
-                        class="bg-clip-text text-transparent bg-gradient-to-r from-teal-300 via-cyan-200 to-purple-300">AI-powered
-                        systems</span><br>
-                    that automate work & scale products.
-                </h1>
-                <p class="mt-4 text-xl md:text-2xl text-teal-300/90 font-medium">
-                    MERN • GenAI • Automation • Deployed Production Systems
-                </p>
-                <p class="mt-6 max-w-2xl mx-auto text-gray-300 text-lg">
-                    Delivering measurable results through intelligent automation and scalable full-stack architectures.
-                </p>
-                <div class="mt-8 flex justify-center space-x-6">
-                    <a href="mailto:variamanav117@gmail.com" aria-label="Email"
-                        class="text-gray-300 hover:text-teal-400 transition-colors"><i data-lucide="mail"
-                            class="w-8 h-8"></i></a>
-                    <a href="https://wa.me/916351171448" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"
-                        class="text-gray-300 hover:text-teal-400 transition-colors"><i data-lucide="smartphone"
-                            class="w-8 h-8"></i></a>
-                    <a href="https://www.linkedin.com/in/manav-varia-167157210" target="_blank"
-                        rel="noopener noreferrer" aria-label="LinkedIn"
-                        class="text-gray-300 hover:text-teal-400 transition-colors"><i data-lucide="linkedin"
-                            class="w-8 h-8"></i></a>
-                    <a href="https://github.com/ManavVaria117" target="_blank" rel="noopener noreferrer"
-                        aria-label="GitHub" class="text-gray-300 hover:text-teal-400 transition-colors"><i
-                            data-lucide="github" class="w-8 h-8"></i></a>
-                    <a href="https://www.fiverr.com/manav_varia" target="_blank" rel="noopener noreferrer"
-                        aria-label="Fiverr" class="text-gray-300 hover:text-teal-400 transition-colors"><i
-                            data-lucide="briefcase" class="w-8 h-8"></i></a>
-                </div>
-                <div class="mt-10 flex items-center justify-center gap-4">
-                    <a href="#projects"
-                        class="inline-flex items-center gap-2 bg-teal-500 text-white font-bold py-3 px-8 rounded-full hover:bg-teal-600 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-teal-500/20">
-                        View Real Projects
-                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                    </a>
-                    <a href="#contact"
-                        class="inline-flex items-center gap-2 bg-white/10 ring-1 ring-white/20 text-white font-semibold py-3 px-8 rounded-full hover:bg-white/20 transition-all duration-300">
-                        Book a Call
-                        <i data-lucide="calendar" class="w-5 h-5"></i>
-                    </a>
+
+            <div class="relative z-10 max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
+                <!-- Left Column -->
+                <div>
+                    <div class="mb-6">
+                        <span
+                            class="px-4 py-1.5 rounded-full bg-slate-100 dark:bg-blue-500/10 text-slate-600 dark:text-blue-300 text-sm font-medium inline-flex items-center gap-2 border border-slate-200 dark:border-blue-500/20 backdrop-blur-sm">
+                            <span class="relative flex h-2 w-2">
+                                <span
+                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
+                            </span>
+                            Available for freelance & internships
+                        </span>
+                    </div>
+                    <h1 class="text-5xl font-bold text-slate-900 dark:text-white leading-tight">
+                        I build <span
+                            class="bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-purple-500">AI-powered
+                            systems</span><br>
+                        that automate work.
+                    </h1>
+                    <p class="mt-4 text-xl text-slate-700 dark:text-slate-300">
+                        Full-Stack Developer & AI Automation Specialist
+                    </p>
+                    <p class="mt-6 text-slate-600 dark:text-slate-400 max-w-lg leading-relaxed">
+                        Delivering measurable results through intelligent automation and scalable full-stack
+                        architectures. I build assets that generate revenue, save time, and solve real business
+                        problems.
+                    </p>
+
+                    <!-- Buttons -->
+                    <div class="mt-8 flex flex-wrap gap-4">
+                        <a href="#projects"
+                            class="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full font-semibold shadow-md hover:shadow-xl transition-all duration-300">
+                            View Projects
+                        </a>
+                        <a href="/ManavVariaResume.pdf" download="ManavVariaResume.pdf"
+                            class="px-8 py-3 backdrop-blur-md bg-white/70 dark:bg-slate-800/70 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white rounded-full font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                            Download Resume
+                        </a>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="mt-12 grid grid-cols-3 gap-6 border-t border-slate-200 dark:border-white/10 pt-8">
+                        <div>
+                            <p class="text-3xl font-bold text-slate-900 dark:text-white">15+</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">Projects</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-bold text-slate-900 dark:text-white">6+</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">Tech Stacks</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-bold text-slate-900 dark:text-white">3+</p>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">Clients</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="mt-10 grid grid-cols-3 gap-6 max-w-xl mx-auto text-center reveal">
-                    <div class="rounded-xl bg-white/5 ring-1 ring-white/10 p-4">
-                        <div class="text-3xl font-extrabold text-white">15+</div>
-                        <div class="text-sm text-gray-400">Projects</div>
-                    </div>
-                    <div class="rounded-xl bg-white/5 ring-1 ring-white/10 p-4">
-                        <div class="text-3xl font-extrabold text-white">6+</div>
-                        <div class="text-sm text-gray-400">Tech Stacks</div>
-                    </div>
-                    <div class="rounded-xl bg-white/5 ring-1 ring-white/10 p-4">
-                        <div class="text-3xl font-extrabold text-white">3+</div>
-                        <div class="text-sm text-gray-400">Clients</div>
-                    </div>
+                <!-- Right Column: Image -->
+                <div class="flex justify-center md:justify-end">
+                    <img src="images/7545d29a-998b-4aeb-ae2b-8ca87de54bdc.png" alt="Manav Varia"
+                        class="w-72 h-72 md:w-96 md:h-96 object-cover rounded-2xl shadow-2xl border-4 border-white/10 bg-slate-800">
                 </div>
             </div>
         </section>
 
-        <div class="h-px w-full bg-gradient-to-r from-transparent via-teal-500/30 to-transparent my-0"></div>
+        <!-- Divider removal (integrated into flow, or keep consistent with target) -->
+        <!-- Target doesn't seem to have explicit divider lines like the user had, so removing for fidelity -->
+
 
         <!-- About Me -->
-        <section id="about" class="py-20 bg-gray-800 scroll-mt-24">
+        <section id="about" class="py-20 bg-transparent scroll-mt-24">
             <div class="container mx-auto px-6">
-                <h2 class="text-4xl font-bold text-center text-white mb-12">About Me</h2>
-                <div class="max-w-4xl mx-auto text-center text-gray-300 text-lg leading-relaxed">
-                    <p class="mb-8 text-xl text-teal-300/90 font-medium">
+                <h2 class="text-4xl font-bold text-center text-slate-900 dark:text-white mb-12">About Me</h2>
+                <div class="max-w-4xl mx-auto text-center text-slate-700 dark:text-slate-300 text-lg leading-relaxed">
+                    <p class="mb-8 text-xl text-teal-600 dark:text-teal-400 font-medium">
                         I bridge the gap between complex AI research and production-grade applications.
                     </p>
                     <ul class="space-y-4 mb-8 text-left max-w-2xl mx-auto">
@@ -713,176 +791,213 @@
         <div class="h-px w-full bg-gradient-to-r from-transparent via-purple-500/30 to-transparent my-0"></div>
 
         <!-- Skills Section -->
-        <section id="skills" class="py-20 bg-gray-900 scroll-mt-24">
+        <section id="skills" class="py-20 bg-transparent scroll-mt-24">
             <div class="container mx-auto px-6">
                 <!-- Header -->
                 <div class="text-center mb-12">
-                    <h2 class="text-4xl font-bold text-white mb-4">Technical Expertise</h2>
-                    <p class="text-gray-400 max-w-2xl mx-auto">
-                        A focused stack optimizing for <span class="text-teal-400">performance</span>, <span
-                            class="text-teal-400">scalability</span>, and <span class="text-purple-400">AI
-                            integration</span>.
+                    <h2 class="text-4xl font-bold text-slate-900 dark:text-white mb-4">Technical Expertise</h2>
+                    <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                        A focused stack optimizing for <span
+                            class="text-teal-600 dark:text-teal-400">performance</span>,
+                        <span class="text-teal-600 dark:text-teal-400">scalability</span>, and <span
+                            class="text-purple-600 dark:text-purple-400">AI integration</span>.
                     </p>
                 </div>
 
                 <!-- Skills Filter Tabs -->
                 <div class="flex flex-wrap justify-center gap-3 mb-12">
                     <button
-                        class="tab px-5 py-2 rounded-full bg-gray-800 text-gray-400 text-sm font-medium hover:text-white hover:bg-gray-700 transition ring-1 ring-white/5 data-[active=true]:bg-teal-500/10 data-[active=true]:text-teal-400 data-[active=true]:ring-teal-500/50"
+                        class="tab px-5 py-2 rounded-full bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 text-sm font-medium hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition ring-1 ring-slate-200 dark:ring-white/5 data-[active=true]:bg-white data-[active=true]:text-teal-600 data-[active=true]:shadow-sm dark:data-[active=true]:bg-teal-500/10 dark:data-[active=true]:text-teal-400 dark:data-[active=true]:ring-teal-500/50"
                         data-skill-filter="all" aria-selected="true" role="tab">All</button>
                     <button
-                        class="tab px-5 py-2 rounded-full bg-gray-800 text-gray-400 text-sm font-medium hover:text-white hover:bg-gray-700 transition ring-1 ring-white/5 data-[active=true]:bg-blue-500/10 data-[active=true]:text-blue-400 data-[active=true]:ring-blue-500/50"
+                        class="tab px-5 py-2 rounded-full bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 text-sm font-medium hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition ring-1 ring-slate-200 dark:ring-white/5 data-[active=true]:bg-white data-[active=true]:text-blue-600 data-[active=true]:shadow-sm dark:data-[active=true]:bg-blue-500/10 dark:data-[active=true]:text-blue-400 dark:data-[active=true]:ring-blue-500/50"
                         data-skill-filter="ai-ml" aria-selected="false" role="tab">AI / ML</button>
                     <button
-                        class="tab px-5 py-2 rounded-full bg-gray-800 text-gray-400 text-sm font-medium hover:text-white hover:bg-gray-700 transition ring-1 ring-white/5 data-[active=true]:bg-purple-500/10 data-[active=true]:text-purple-400 data-[active=true]:ring-purple-500/50"
+                        class="tab px-5 py-2 rounded-full bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 text-sm font-medium hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition ring-1 ring-slate-200 dark:ring-white/5 data-[active=true]:bg-white data-[active=true]:text-purple-600 data-[active=true]:shadow-sm dark:data-[active=true]:bg-purple-500/10 dark:data-[active=true]:text-purple-400 dark:data-[active=true]:ring-purple-500/50"
                         data-skill-filter="genai" aria-selected="false" role="tab">✨ GenAI & LLMs</button>
                     <button
-                        class="tab px-5 py-2 rounded-full bg-gray-800 text-gray-400 text-sm font-medium hover:text-white hover:bg-gray-700 transition ring-1 ring-white/5 data-[active=true]:bg-teal-500/10 data-[active=true]:text-teal-400 data-[active=true]:ring-teal-500/50"
+                        class="tab px-5 py-2 rounded-full bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 text-sm font-medium hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition ring-1 ring-slate-200 dark:ring-white/5 data-[active=true]:bg-white data-[active=true]:text-teal-600 data-[active=true]:shadow-sm dark:data-[active=true]:bg-teal-500/10 dark:data-[active=true]:text-teal-400 dark:data-[active=true]:ring-teal-500/50"
                         data-skill-filter="backend" aria-selected="false" role="tab">Backend & APIs</button>
                     <button
-                        class="tab px-5 py-2 rounded-full bg-gray-800 text-gray-400 text-sm font-medium hover:text-white hover:bg-gray-700 transition ring-1 ring-white/5 data-[active=true]:bg-teal-500/10 data-[active=true]:text-teal-400 data-[active=true]:ring-teal-500/50"
+                        class="tab px-5 py-2 rounded-full bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 text-sm font-medium hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition ring-1 ring-slate-200 dark:ring-white/5 data-[active=true]:bg-white data-[active=true]:text-teal-600 data-[active=true]:shadow-sm dark:data-[active=true]:bg-teal-500/10 dark:data-[active=true]:text-teal-400 dark:data-[active=true]:ring-teal-500/50"
                         data-skill-filter="frontend" aria-selected="false" role="tab">Full Stack</button>
                     <button
-                        class="tab px-5 py-2 rounded-full bg-gray-800 text-gray-400 text-sm font-medium hover:text-white hover:bg-gray-700 transition ring-1 ring-white/5 data-[active=true]:bg-teal-500/10 data-[active=true]:text-teal-400 data-[active=true]:ring-teal-500/50"
+                        class="tab px-5 py-2 rounded-full bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 text-sm font-medium hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition ring-1 ring-slate-200 dark:ring-white/5 data-[active=true]:bg-white data-[active=true]:text-teal-600 data-[active=true]:shadow-sm dark:data-[active=true]:bg-teal-500/10 dark:data-[active=true]:text-teal-400 dark:data-[active=true]:ring-teal-500/50"
                         data-skill-filter="databases" aria-selected="false" role="tab">Databases</button>
                     <button
-                        class="tab px-5 py-2 rounded-full bg-gray-800 text-gray-400 text-sm font-medium hover:text-white hover:bg-gray-700 transition ring-1 ring-white/5 data-[active=true]:bg-teal-500/10 data-[active=true]:text-teal-400 data-[active=true]:ring-teal-500/50"
+                        class="tab px-5 py-2 rounded-full bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 text-sm font-medium hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition ring-1 ring-slate-200 dark:ring-white/5 data-[active=true]:bg-white data-[active=true]:text-teal-600 data-[active=true]:shadow-sm dark:data-[active=true]:bg-teal-500/10 dark:data-[active=true]:text-teal-400 dark:data-[active=true]:ring-teal-500/50"
                         data-skill-filter="devops" aria-selected="false" role="tab">DevOps & Cloud</button>
                 </div>
 
                 <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-5 max-w-6xl mx-auto" id="skills-grid">
 
                     <!-- === AI / ML === -->
-                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-teal-400/60 shadow-[0_0_15px_-3px_rgba(45,212,191,0.3)] hover:border-teal-400 transition-all"
+                    <div class="skill-card group flex flex-col items-center p-5 bg-teal-50 dark:bg-gray-800/50 rounded-xl border border-teal-200 dark:border-teal-400/60 shadow-sm hover:border-teal-400 transition-all"
                         data-skill="Python" data-categories="ai-ml backend">
                         <img src="https://cdn.simpleicons.org/python/3776AB" class="h-12 w-12 mb-3 skill-icon"
                             alt="Python">
-                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">Python</p>
+                        <p
+                            class="font-medium text-slate-700 dark:text-gray-300 group-hover:text-slate-900 dark:group-hover:text-white text-sm">
+                            Python</p>
                     </div>
-                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-blue-500/30"
+                    <div class="skill-card group flex flex-col items-center p-5 bg-white dark:bg-gray-800/50 rounded-xl border border-slate-200 dark:border-white/5 hover:border-blue-500/30 shadow-sm"
                         data-skill="TensorFlow" data-categories="ai-ml">
                         <img src="https://cdn.simpleicons.org/tensorflow/FF6F00" class="h-12 w-12 mb-3 skill-icon"
                             alt="TensorFlow">
-                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">TensorFlow</p>
+                        <p
+                            class="font-medium text-slate-700 dark:text-gray-300 group-hover:text-slate-900 dark:group-hover:text-white text-sm">
+                            TensorFlow</p>
                     </div>
-                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-blue-500/30"
+                    <div class="skill-card group flex flex-col items-center p-5 bg-white dark:bg-gray-800/50 rounded-xl border border-slate-200 dark:border-white/5 hover:border-blue-500/30 shadow-sm"
                         data-skill="PyTorch" data-categories="ai-ml">
                         <img src="https://cdn.simpleicons.org/pytorch/EE4C2C" class="h-12 w-12 mb-3 skill-icon"
                             alt="PyTorch">
-                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">PyTorch</p>
+                        <p
+                            class="font-medium text-slate-700 dark:text-gray-300 group-hover:text-slate-900 dark:group-hover:text-white text-sm">
+                            PyTorch</p>
                     </div>
-                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-blue-500/30"
+                    <div class="skill-card group flex flex-col items-center p-5 bg-white dark:bg-gray-800/50 rounded-xl border border-slate-200 dark:border-white/5 hover:border-blue-500/30 shadow-sm"
                         data-skill="Scikit-learn" data-categories="ai-ml">
                         <img src="https://cdn.simpleicons.org/scikitlearn/F7931E" class="h-12 w-12 mb-3 skill-icon"
                             alt="Scikit-learn">
-                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">Scikit-learn</p>
+                        <p
+                            class="font-medium text-slate-700 dark:text-gray-300 group-hover:text-slate-900 dark:group-hover:text-white text-sm">
+                            Scikit-learn</p>
                     </div>
-                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-blue-500/30"
+                    <div class="skill-card group flex flex-col items-center p-5 bg-white dark:bg-gray-800/50 rounded-xl border border-slate-200 dark:border-white/5 hover:border-blue-500/30 shadow-sm"
                         data-skill="OpenCV" data-categories="ai-ml">
                         <img src="https://cdn.simpleicons.org/opencv/5C3EE8" class="h-12 w-12 mb-3 skill-icon"
                             alt="OpenCV">
-                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">OpenCV</p>
+                        <p
+                            class="font-medium text-slate-700 dark:text-gray-300 group-hover:text-slate-900 dark:group-hover:text-white text-sm">
+                            OpenCV</p>
                     </div>
-                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-blue-500/30"
+                    <div class="skill-card group flex flex-col items-center p-5 bg-white dark:bg-gray-800/50 rounded-xl border border-slate-200 dark:border-white/5 hover:border-blue-500/30 shadow-sm"
                         data-skill="NumPy / Pandas" data-categories="ai-ml">
                         <img src="https://cdn.simpleicons.org/pandas/150458" class="h-12 w-12 mb-3 skill-icon"
                             alt="NumPy/Pandas">
-                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">NumPy / Pandas</p>
+                        <p
+                            class="font-medium text-slate-700 dark:text-gray-300 group-hover:text-slate-900 dark:group-hover:text-white text-sm">
+                            NumPy / Pandas</p>
                     </div>
 
                     <!-- === GenAI (Highlighted) === -->
-                    <div class="skill-card genai-card group flex flex-col items-center p-5 bg-purple-900/10 rounded-xl border border-purple-500/20 hover:border-purple-400 hover:shadow-[0_0_20px_-5px_rgba(168,85,247,0.3)]"
+                    <div class="skill-card genai-card group flex flex-col items-center p-5 bg-purple-50 dark:bg-purple-900/10 rounded-xl border border-purple-200 dark:border-purple-500/20 hover:border-purple-400 hover:shadow-[0_0_20px_-5px_rgba(168,85,247,0.3)] shadow-sm"
                         data-skill="LLMs" data-categories="genai ai-ml">
-                        <i data-lucide="sparkles" class="w-12 h-12 mb-3 text-purple-400"></i>
-                        <p class="font-medium text-purple-200 group-hover:text-white text-sm">LLMs</p>
+                        <i data-lucide="sparkles" class="w-12 h-12 mb-3 text-purple-600 dark:text-purple-400"></i>
+                        <p
+                            class="font-medium text-purple-900 dark:text-purple-200 group-hover:text-purple-700 dark:group-hover:text-white text-sm">
+                            LLMs</p>
                     </div>
-                    <div class="skill-card genai-card group flex flex-col items-center p-5 bg-purple-900/10 rounded-xl border border-purple-500/20 hover:border-purple-400 hover:shadow-[0_0_20px_-5px_rgba(168,85,247,0.3)]"
+                    <div class="skill-card genai-card group flex flex-col items-center p-5 bg-purple-50 dark:bg-purple-900/10 rounded-xl border border-purple-200 dark:border-purple-500/20 hover:border-purple-400 hover:shadow-[0_0_20px_-5px_rgba(168,85,247,0.3)] shadow-sm"
                         data-skill="LangChain" data-categories="genai ai-ml">
-                        <i data-lucide="link" class="w-12 h-12 mb-3 text-purple-400"></i>
-                        <p class="font-medium text-purple-200 group-hover:text-white text-sm">LangChain</p>
+                        <i data-lucide="link" class="w-12 h-12 mb-3 text-purple-600 dark:text-purple-400"></i>
+                        <p
+                            class="font-medium text-purple-900 dark:text-purple-200 group-hover:text-purple-700 dark:group-hover:text-white text-sm">
+                            LangChain</p>
                     </div>
-                    <div class="skill-card genai-card group flex flex-col items-center p-5 bg-purple-900/10 rounded-xl border border-purple-500/20 hover:border-purple-400 hover:shadow-[0_0_20px_-5px_rgba(168,85,247,0.3)]"
+                    <div class="skill-card genai-card group flex flex-col items-center p-5 bg-purple-50 dark:bg-purple-900/10 rounded-xl border border-purple-200 dark:border-purple-500/20 hover:border-purple-400 hover:shadow-[0_0_20px_-5px_rgba(168,85,247,0.3)] shadow-sm"
                         data-skill="Hugging Face" data-categories="genai ai-ml">
-                        <i data-lucide="smile" class="w-12 h-12 mb-3 text-yellow-400"></i>
-                        <p class="font-medium text-purple-200 group-hover:text-white text-sm">Hugging Face</p>
+                        <i data-lucide="smile" class="w-12 h-12 mb-3 text-yellow-500 dark:text-yellow-400"></i>
+                        <p
+                            class="font-medium text-purple-900 dark:text-purple-200 group-hover:text-purple-700 dark:group-hover:text-white text-sm">
+                            Hugging Face</p>
                     </div>
-                    <div class="skill-card genai-card group flex flex-col items-center p-5 bg-purple-900/10 rounded-xl border border-purple-500/20 hover:border-purple-400 hover:shadow-[0_0_20px_-5px_rgba(168,85,247,0.3)]"
+                    <div class="skill-card genai-card group flex flex-col items-center p-5 bg-purple-50 dark:bg-purple-900/10 rounded-xl border border-purple-200 dark:border-purple-500/20 hover:border-purple-400 hover:shadow-[0_0_20px_-5px_rgba(168,85,247,0.3)] shadow-sm"
                         data-skill="RAG" data-categories="genai">
-                        <i data-lucide="file-search" class="w-12 h-12 mb-3 text-purple-400"></i>
-                        <p class="font-medium text-purple-200 group-hover:text-white text-sm">RAG Pipelines</p>
+                        <i data-lucide="file-search" class="w-12 h-12 mb-3 text-purple-600 dark:text-purple-400"></i>
+                        <p
+                            class="font-medium text-purple-900 dark:text-purple-200 group-hover:text-purple-700 dark:group-hover:text-white text-sm">
+                            RAG Pipelines</p>
                     </div>
 
                     <!-- === Backend === -->
-                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-teal-400/60 shadow-[0_0_15px_-3px_rgba(45,212,191,0.3)] hover:border-teal-400 transition-all"
+                    <div class="skill-card group flex flex-col items-center p-5 bg-teal-50 dark:bg-gray-800/50 rounded-xl border border-teal-200 dark:border-teal-400/60 shadow-sm hover:border-teal-400 transition-all"
                         data-skill="Node.js" data-categories="backend">
                         <img src="https://cdn.simpleicons.org/nodedotjs/339933" class="h-12 w-12 mb-3 skill-icon"
                             alt="Node.js">
-                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">Node.js</p>
+                        <p
+                            class="font-medium text-slate-700 dark:text-gray-300 group-hover:text-slate-900 dark:group-hover:text-white text-sm">
+                            Node.js</p>
                     </div>
-                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                    <div class="skill-card group flex flex-col items-center p-5 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-white/5 hover:border-teal-500/30 shadow-sm transition-all"
                         data-skill="FastAPI" data-categories="backend ai-ml">
                         <img src="https://cdn.simpleicons.org/fastapi/009688" class="h-12 w-12 mb-3 skill-icon"
                             alt="FastAPI">
-                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">FastAPI</p>
+                        <p
+                            class="font-medium text-slate-700 dark:text-gray-300 group-hover:text-slate-900 dark:group-hover:text-white text-sm">
+                            FastAPI</p>
                     </div>
-                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                    <div class="skill-card group flex flex-col items-center p-5 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-white/5 hover:border-teal-500/30 shadow-sm transition-all"
                         data-skill="Express.js" data-categories="backend">
                         <img src="https://cdn.simpleicons.org/express/000000" class="h-12 w-12 mb-3 skill-icon"
                             alt="Express">
-                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">Express.js</p>
+                        <p
+                            class="font-medium text-slate-700 dark:text-gray-300 group-hover:text-slate-900 dark:group-hover:text-white text-sm">
+                            Express.js</p>
                     </div>
-                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                    <div class="skill-card group flex flex-col items-center p-5 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-white/5 hover:border-teal-500/30 shadow-sm transition-all"
                         data-skill="REST APIs" data-categories="backend">
                         <img src="https://cdn.simpleicons.org/postman/FF6C37" class="h-12 w-12 mb-3 skill-icon"
                             alt="REST APIs">
-                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">REST APIs</p>
+                        <p
+                            class="font-medium text-slate-700 dark:text-gray-300 group-hover:text-slate-900 dark:group-hover:text-white text-sm">
+                            REST APIs</p>
                     </div>
 
                     <!-- === Full Stack === -->
-                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-teal-400/60 shadow-[0_0_15px_-3px_rgba(45,212,191,0.3)] hover:border-teal-400 transition-all"
+                    <div class="skill-card group flex flex-col items-center p-5 bg-teal-50 dark:bg-gray-800/50 rounded-xl border border-teal-200 dark:border-teal-400/60 shadow-sm hover:border-teal-400 transition-all"
                         data-skill="React" data-categories="frontend">
                         <img src="https://cdn.simpleicons.org/react/61DAFB" class="h-12 w-12 mb-3 skill-icon"
                             alt="React">
-                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">React</p>
+                        <p
+                            class="font-medium text-slate-700 dark:text-gray-300 group-hover:text-slate-900 dark:group-hover:text-white text-sm">
+                            React</p>
                     </div>
-                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                    <div class="skill-card group flex flex-col items-center p-5 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-200 dark:border-white/5 hover:border-teal-500/30 transition-all shadow-sm"
                         data-skill="MERN Stack" data-categories="frontend backend">
                         <img src="https://cdn.simpleicons.org/mongodb/47A248" class="h-12 w-12 mb-3 skill-icon"
                             alt="MERN">
                         <p class="font-medium text-gray-300 group-hover:text-white text-sm">MERN Stack</p>
                     </div>
-                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                    <div class="skill-card group flex flex-col items-center p-5 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-200 dark:border-white/5 hover:border-teal-500/30 transition-all shadow-sm"
                         data-skill="Tailwind" data-categories="frontend">
                         <img src="https://cdn.simpleicons.org/tailwindcss/06B6D4" class="h-12 w-12 mb-3 skill-icon"
                             alt="Tailwind">
                         <p class="font-medium text-gray-300 group-hover:text-white text-sm">Tailwind CSS</p>
                     </div>
-                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-teal-400/60 shadow-[0_0_15px_-3px_rgba(45,212,191,0.3)] hover:border-teal-400 transition-all"
+                    <div class="skill-card group flex flex-col items-center p-5 bg-teal-50 dark:bg-gray-800/50 rounded-xl border border-teal-200 dark:border-teal-400/60 shadow-sm hover:border-teal-400 transition-all"
                         data-skill="JavaScript" data-categories="frontend">
                         <img src="https://cdn.simpleicons.org/javascript/F7DF1E" class="h-12 w-12 mb-3 skill-icon"
                             alt="JavaScript">
-                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">JavaScript</p>
+                        <p
+                            class="font-medium text-slate-700 dark:text-gray-300 group-hover:text-slate-900 dark:group-hover:text-white text-sm">
+                            JavaScript</p>
                     </div>
 
                     <!-- === Databases === -->
-                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                    <div class="skill-card group flex flex-col items-center p-5 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-white/5 hover:border-teal-500/30 shadow-sm transition-all"
                         data-skill="MongoDB" data-categories="databases">
                         <img src="https://cdn.simpleicons.org/mongodb/47A248" class="h-12 w-12 mb-3 skill-icon"
                             alt="MongoDB">
-                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">MongoDB</p>
+                        <p
+                            class="font-medium text-slate-700 dark:text-gray-300 group-hover:text-slate-900 dark:group-hover:text-white text-sm">
+                            MongoDB</p>
                     </div>
-                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                    <div class="skill-card group flex flex-col items-center p-5 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-white/5 hover:border-teal-500/30 shadow-sm transition-all"
                         data-skill="Vector DBs" data-categories="databases genai">
-                        <i data-lucide="database" class="w-12 h-12 mb-3 text-red-400"></i>
-                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">Vector DBs</p>
+                        <i data-lucide="database" class="w-12 h-12 mb-3 text-red-500 dark:text-red-400"></i>
+                        <p
+                            class="font-medium text-slate-700 dark:text-gray-300 group-hover:text-slate-900 dark:group-hover:text-white text-sm">
+                            Vector DBs</p>
                     </div>
-                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                    <div class="skill-card group flex flex-col items-center p-5 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-200 dark:border-white/5 hover:border-teal-500/30 transition-all shadow-sm"
                         data-skill="MySQL" data-categories="databases">
                         <img src="https://cdn.simpleicons.org/mysql/4479A1" class="h-12 w-12 mb-3 skill-icon"
                             alt="MySQL">
                         <p class="font-medium text-gray-300 group-hover:text-white text-sm">MySQL</p>
                     </div>
-                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                    <div class="skill-card group flex flex-col items-center p-5 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-200 dark:border-white/5 hover:border-teal-500/30 transition-all shadow-sm"
                         data-skill="Firebase" data-categories="databases">
                         <img src="https://cdn.simpleicons.org/firebase/FFCA28" class="h-12 w-12 mb-3 skill-icon"
                             alt="Firebase">
@@ -890,40 +1005,46 @@
                     </div>
 
                     <!-- === DevOps & Cloud === -->
-                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                    <div class="skill-card group flex flex-col items-center p-5 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-200 dark:border-white/5 hover:border-teal-500/30 transition-all shadow-sm"
                         data-skill="Docker" data-categories="devops">
                         <img src="https://cdn.simpleicons.org/docker/2496ED" class="h-12 w-12 mb-3 skill-icon"
                             alt="Docker">
                         <p class="font-medium text-gray-300 group-hover:text-white text-sm">Docker</p>
                     </div>
-                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                    <div class="skill-card group flex flex-col items-center p-5 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-200 dark:border-white/5 hover:border-teal-500/30 transition-all shadow-sm"
                         data-skill="AWS" data-categories="devops">
                         <i data-lucide="cloud" class="w-12 h-12 mb-3 text-[#FF9900]"></i>
                         <p class="font-medium text-gray-300 group-hover:text-white text-sm">AWS</p>
                     </div>
-                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                    <div class="skill-card group flex flex-col items-center p-5 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-200 dark:border-white/5 hover:border-teal-500/30 transition-all shadow-sm"
                         data-skill="GitHub Actions" data-categories="devops">
                         <img src="https://cdn.simpleicons.org/githubactions/2088FF" class="h-12 w-12 mb-3 skill-icon"
                             alt="CI/CD">
                         <p class="font-medium text-gray-300 group-hover:text-white text-sm">GitHub Actions</p>
                     </div>
-                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                    <div class="skill-card group flex flex-col items-center p-5 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-white/5 hover:border-teal-500/30 shadow-sm transition-all"
                         data-skill="MLflow" data-categories="devops ai-ml">
                         <img src="https://cdn.simpleicons.org/mlflow/009B87" class="h-12 w-12 mb-3 skill-icon"
                             alt="MLflow">
-                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">MLflow</p>
+                        <p
+                            class="font-medium text-slate-700 dark:text-gray-300 group-hover:text-slate-900 dark:group-hover:text-white text-sm">
+                            MLflow</p>
                     </div>
-                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                    <div class="skill-card group flex flex-col items-center p-5 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-white/5 hover:border-teal-500/30 shadow-sm transition-all"
                         data-skill="Deployment" data-categories="devops">
-                        <i data-lucide="triangle" class="w-12 h-12 mb-3 text-white"></i>
-                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">Vercel / Render</p>
+                        <i data-lucide="triangle" class="w-12 h-12 mb-3 text-slate-900 dark:text-white"></i>
+                        <p
+                            class="font-medium text-slate-700 dark:text-gray-300 group-hover:text-slate-900 dark:group-hover:text-white text-sm">
+                            Vercel / Render</p>
                     </div>
                     <!-- Optional Automation -->
-                    <div class="skill-card group flex flex-col items-center p-5 bg-gray-800/50 rounded-xl border border-white/5 hover:border-teal-500/30 transition-all"
+                    <div class="skill-card group flex flex-col items-center p-5 bg-white dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-white/5 hover:border-teal-500/30 shadow-sm transition-all"
                         data-skill="Puppeteer" data-categories="devops">
                         <img src="https://cdn.simpleicons.org/puppeteer/40B5A4" class="h-12 w-12 mb-3 skill-icon"
                             alt="Puppeteer">
-                        <p class="font-medium text-gray-300 group-hover:text-white text-sm">Puppeteer</p>
+                        <p
+                            class="font-medium text-slate-700 dark:text-gray-300 group-hover:text-slate-900 dark:group-hover:text-white text-sm">
+                            Puppeteer</p>
                     </div>
                 </div>
             </div>
@@ -932,16 +1053,17 @@
         <div class="h-px w-full bg-gradient-to-r from-transparent via-teal-500/30 to-transparent my-0"></div>
 
         <!-- Projects Section -->
-        <section id="projects" class="py-20 bg-gray-800 scroll-mt-24">
+        <section id="projects" class="py-20 bg-transparent scroll-mt-24">
             <div class="container mx-auto px-6">
                 <div class="flex justify-center mb-4">
-                    <span class="px-3 py-1 rounded-full bg-white/5 ring-1 ring-white/10 text-xs text-gray-300">Selected
+                    <span
+                        class="px-3 py-1 rounded-full bg-slate-100 dark:bg-blue-500/10 text-slate-600 dark:text-blue-300 text-sm font-medium border border-slate-200 dark:border-blue-500/20 backdrop-blur-sm">Selected
                         Work</span>
                 </div>
-                <h2 class="text-4xl font-bold text-center text-white mb-12">Featured Projects</h2>
+                <h2 class="text-4xl font-bold text-center text-slate-900 dark:text-white mb-12">Featured Projects</h2>
                 <div class="grid md:grid-cols-2 gap-10 max-w-6xl mx-auto">
                     <!-- Project Card 1 -->
-                    <div class="reveal tilt-card group relative overflow-hidden rounded-xl gradient-border bg-gradient-to-b from-gray-900 to-gray-800 project-card-hover"
+                    <div class="reveal tilt-card group relative overflow-hidden rounded-xl bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border border-slate-200 dark:border-white/10 shadow-lg hover:shadow-xl transition-all duration-300 project-card-hover"
                         role="button" tabindex="0" aria-haspopup="dialog" data-project-id="medlink">
                         <div class="relative">
                             <span
@@ -954,15 +1076,26 @@
                             <div
                                 class="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-100">
                             </div>
+                            <div
+                                class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                                <span
+                                    class="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-slate-900 dark:text-white px-4 py-2 rounded-full font-medium text-sm shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 flex items-center gap-2 border border-slate-200 dark:border-white/10">
+                                    <i data-lucide="mouse-pointer-2" class="w-4 h-4 text-teal-500"></i> Click for
+                                    Details
+                                </span>
+                            </div>
                         </div>
                         <div class="p-6 project-info">
-                            <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-teal-300 transition-colors">
+                            <h3
+                                class="text-2xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-teal-600 dark:group-hover:text-teal-300 transition-colors">
                                 MedLink Plus</h3>
-                            <p class="text-gray-400 mb-4">Built a comprehensive healthcare platform using MERN &
+                            <p class="text-slate-600 dark:text-slate-400 mb-4">Built a comprehensive healthcare platform
+                                using MERN &
                                 OpenRouter API that reduced patient appointment booking time by 50%.</p>
 
                             <!-- Project Stats -->
-                            <div class="mb-4 text-xs text-gray-400 border-t border-gray-700 pt-3">
+                            <div
+                                class="mb-4 text-xs text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-slate-700 pt-3">
                                 <p class="mb-1"><strong class="text-teal-400">Problem:</strong> Inefficient
                                     doctor-patient matching & scheduling.</p>
                                 <p><strong class="text-teal-400">Outcome:</strong> Streamlined 100+ interactions &
@@ -971,13 +1104,13 @@
 
                             <div class="flex flex-wrap gap-2 mb-4">
                                 <span
-                                    class="bg-teal-500/15 text-teal-300 text-xs font-semibold px-2.5 py-1 rounded-full">AI
+                                    class="bg-slate-100 dark:bg-teal-500/15 text-slate-700 dark:text-teal-300 text-xs font-semibold px-2.5 py-1 rounded-full border border-slate-200 dark:border-transparent">AI
                                     Chatbot</span>
                                 <span
-                                    class="bg-teal-500/15 text-teal-300 text-xs font-semibold px-2.5 py-1 rounded-full">OpenRouter
+                                    class="bg-slate-100 dark:bg-teal-500/15 text-slate-700 dark:text-teal-300 text-xs font-semibold px-2.5 py-1 rounded-full border border-slate-200 dark:border-transparent">OpenRouter
                                     API</span>
                                 <span
-                                    class="bg-teal-500/15 text-teal-300 text-xs font-semibold px-2.5 py-1 rounded-full">Healthcare</span>
+                                    class="bg-slate-100 dark:bg-teal-500/15 text-slate-700 dark:text-teal-300 text-xs font-semibold px-2.5 py-1 rounded-full border border-slate-200 dark:border-transparent">Healthcare</span>
                             </div>
                             <div class="flex flex-wrap gap-3">
                                 <a href="https://github.com/ManavVaria117/MedLinkPlus.git" target="_blank"
@@ -994,7 +1127,7 @@
                         </div>
                     </div>
                     <!-- Project Card 2 -->
-                    <div class="reveal tilt-card group relative overflow-hidden rounded-xl gradient-border bg-gradient-to-b from-gray-900 to-gray-800 project-card-hover"
+                    <div class="reveal tilt-card group relative overflow-hidden rounded-xl bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border border-slate-200 dark:border-white/10 shadow-lg hover:shadow-xl transition-all duration-300 project-card-hover"
                         role="button" tabindex="0" aria-haspopup="dialog" data-project-id="chat">
                         <div class="relative">
                             <img src="./images/chatapp/Screenshot 2025-08-24 122819.png" alt="Chat user interface theme"
@@ -1003,15 +1136,26 @@
                             <div
                                 class="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-100">
                             </div>
+                            <div
+                                class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                                <span
+                                    class="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-slate-900 dark:text-white px-4 py-2 rounded-full font-medium text-sm shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 flex items-center gap-2 border border-slate-200 dark:border-white/10">
+                                    <i data-lucide="mouse-pointer-2" class="w-4 h-4 text-teal-500"></i> Click for
+                                    Details
+                                </span>
+                            </div>
                         </div>
                         <div class="p-6 project-info">
-                            <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-teal-300 transition-colors">
+                            <h3
+                                class="text-2xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-teal-600 dark:group-hover:text-teal-300 transition-colors">
                                 AI-Powered Chat Site</h3>
-                            <p class="text-gray-400 mb-4">Developed a real-time chat system with emotional intelligence
+                            <p class="text-slate-600 dark:text-slate-400 mb-4">Developed a real-time chat system with
+                                emotional intelligence
                                 using Hugging Face that improved user engagement by analysing sentiment.</p>
 
                             <!-- Project Stats -->
-                            <div class="mb-4 text-xs text-gray-400 border-t border-gray-700 pt-3">
+                            <div
+                                class="mb-4 text-xs text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-slate-700 pt-3">
                                 <p class="mb-1"><strong class="text-teal-400">Problem:</strong> Static, unengaging
                                     support chats.</p>
                                 <p><strong class="text-teal-400">Outcome:</strong> Instant sentiment feedback loop & 2x
@@ -1020,12 +1164,12 @@
 
                             <div class="flex flex-wrap gap-2 mb-4">
                                 <span
-                                    class="bg-purple-500/15 text-purple-300 text-xs font-semibold px-2.5 py-1 rounded-full">Real-Time</span>
+                                    class="bg-slate-100 dark:bg-purple-500/15 text-slate-700 dark:text-purple-300 text-xs font-semibold px-2.5 py-1 rounded-full border border-slate-200 dark:border-transparent">Real-Time</span>
                                 <span
-                                    class="bg-purple-500/15 text-purple-300 text-xs font-semibold px-2.5 py-1 rounded-full">Hugging
+                                    class="bg-slate-100 dark:bg-purple-500/15 text-slate-700 dark:text-purple-300 text-xs font-semibold px-2.5 py-1 rounded-full border border-slate-200 dark:border-transparent">Hugging
                                     Face</span>
                                 <span
-                                    class="bg-purple-500/15 text-purple-300 text-xs font-semibold px-2.5 py-1 rounded-full">Sentiment
+                                    class="bg-slate-100 dark:bg-purple-500/15 text-slate-700 dark:text-purple-300 text-xs font-semibold px-2.5 py-1 rounded-full border border-slate-200 dark:border-transparent">Sentiment
                                     Analysis</span>
                             </div>
                             <div class="flex flex-wrap gap-3">
@@ -1044,7 +1188,7 @@
                     </div>
 
                     <!-- Project Card 3 -->
-                    <div class="reveal tilt-card group relative overflow-hidden rounded-xl gradient-border bg-gradient-to-b from-gray-900 to-gray-800 project-card-hover"
+                    <div class="reveal tilt-card group relative overflow-hidden rounded-xl bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border border-slate-200 dark:border-white/10 shadow-lg hover:shadow-xl transition-all duration-300 project-card-hover"
                         role="button" tabindex="0" aria-haspopup="dialog" data-project-id="tracker">
                         <div class="relative">
                             <img src="./images/amazon bot/Screenshot 2025-08-24 123823.png"
@@ -1053,15 +1197,26 @@
                             <div
                                 class="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-100">
                             </div>
+                            <div
+                                class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                                <span
+                                    class="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-slate-900 dark:text-white px-4 py-2 rounded-full font-medium text-sm shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 flex items-center gap-2 border border-slate-200 dark:border-white/10">
+                                    <i data-lucide="mouse-pointer-2" class="w-4 h-4 text-teal-500"></i> Click for
+                                    Details
+                                </span>
+                            </div>
                         </div>
                         <div class="p-6 project-info">
-                            <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-teal-300 transition-colors">
+                            <h3
+                                class="text-2xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-teal-600 dark:group-hover:text-teal-300 transition-colors">
                                 Amazon Price Tracker</h3>
-                            <p class="text-gray-400 mb-4">Engineered a price tracking dashboard that helps users save
+                            <p class="text-slate-600 dark:text-slate-400 mb-4">Engineered a price tracking dashboard
+                                that helps users save
                                 money by visualizing historical price data and predicting drops.</p>
 
                             <!-- Project Stats -->
-                            <div class="mb-4 text-xs text-gray-400 border-t border-gray-700 pt-3">
+                            <div
+                                class="mb-4 text-xs text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-slate-700 pt-3">
                                 <p class="mb-1"><strong class="text-teal-400">Problem:</strong> Overpaying due to market
                                     price fluctuation.</p>
                                 <p><strong class="text-teal-400">Outcome:</strong> Saved users ~15% on tracked
@@ -1070,11 +1225,11 @@
 
                             <div class="flex flex-wrap gap-2 mb-4">
                                 <span
-                                    class="bg-blue-500/15 text-blue-300 text-xs font-semibold px-2.5 py-1 rounded-full">React</span>
+                                    class="bg-slate-100 dark:bg-blue-500/15 text-slate-700 dark:text-blue-300 text-xs font-semibold px-2.5 py-1 rounded-full border border-slate-200 dark:border-transparent">React</span>
                                 <span
-                                    class="bg-blue-500/15 text-blue-300 text-xs font-semibold px-2.5 py-1 rounded-full">Frontend</span>
+                                    class="bg-slate-100 dark:bg-blue-500/15 text-slate-700 dark:text-blue-300 text-xs font-semibold px-2.5 py-1 rounded-full border border-slate-200 dark:border-transparent">Frontend</span>
                                 <span
-                                    class="bg-blue-500/15 text-blue-300 text-xs font-semibold px-2.5 py-1 rounded-full">Data
+                                    class="bg-slate-100 dark:bg-blue-500/15 text-slate-700 dark:text-blue-300 text-xs font-semibold px-2.5 py-1 rounded-full border border-slate-200 dark:border-transparent">Data
                                     Visualization</span>
                             </div>
                             <div class="flex flex-wrap gap-3">
@@ -1092,7 +1247,7 @@
                         </div>
                     </div>
                     <!-- Project Card 4: AI Health Checker -->
-                    <div class="reveal tilt-card group relative overflow-hidden rounded-xl gradient-border bg-gradient-to-b from-gray-900 to-gray-800 project-card-hover"
+                    <div class="reveal tilt-card group relative overflow-hidden rounded-xl bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border border-slate-200 dark:border-white/10 shadow-lg hover:shadow-xl transition-all duration-300 project-card-hover"
                         role="button" tabindex="0" aria-haspopup="dialog" data-project-id="healthchecker">
                         <div class="relative">
                             <img src="./images/healthChecker/Screenshot 2025-10-21 023047.png"
@@ -1101,17 +1256,27 @@
                             <div
                                 class="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-100">
                             </div>
+                            <div
+                                class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                                <span
+                                    class="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-slate-900 dark:text-white px-4 py-2 rounded-full font-medium text-sm shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 flex items-center gap-2 border border-slate-200 dark:border-white/10">
+                                    <i data-lucide="mouse-pointer-2" class="w-4 h-4 text-teal-500"></i> Click for
+                                    Details
+                                </span>
+                            </div>
                         </div>
                         <div class="p-6 project-info">
-                            <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-teal-300 transition-colors">
+                            <h3
+                                class="text-2xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-teal-600 dark:group-hover:text-teal-300 transition-colors">
                                 AI Health Checker</h3>
-                            <p class="text-gray-400 mb-4">
+                            <p class="text-slate-600 dark:text-slate-400 mb-4">
                                 Created an AI-driven wellness assistant using Flask & Python that provides instant
                                 symptom analysis key health metrics.
                             </p>
 
                             <!-- Project Stats -->
-                            <div class="mb-4 text-xs text-gray-400 border-t border-gray-700 pt-3">
+                            <div
+                                class="mb-4 text-xs text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-slate-700 pt-3">
                                 <p class="mb-1"><strong class="text-teal-400">Problem:</strong> Lack of immediate,
                                     reliable health guidance.</p>
                                 <p><strong class="text-teal-400">Outcome:</strong> Instant triage & personalized health
@@ -1120,13 +1285,13 @@
 
                             <div class="flex flex-wrap gap-2 mb-4">
                                 <span
-                                    class="bg-green-500/15 text-green-300 text-xs font-semibold px-2.5 py-1 rounded-full">AI
+                                    class="bg-slate-100 dark:bg-green-500/15 text-slate-700 dark:text-green-300 text-xs font-semibold px-2.5 py-1 rounded-full border border-slate-200 dark:border-transparent">AI
                                     Model</span>
                                 <span
-                                    class="bg-green-500/15 text-green-300 text-xs font-semibold px-2.5 py-1 rounded-full">Flask
+                                    class="bg-slate-100 dark:bg-green-500/15 text-slate-700 dark:text-green-300 text-xs font-semibold px-2.5 py-1 rounded-full border border-slate-200 dark:border-transparent">Flask
                                     + Python</span>
                                 <span
-                                    class="bg-green-500/15 text-green-300 text-xs font-semibold px-2.5 py-1 rounded-full">React
+                                    class="bg-slate-100 dark:bg-green-500/15 text-slate-700 dark:text-green-300 text-xs font-semibold px-2.5 py-1 rounded-full border border-slate-200 dark:border-transparent">React
                                     Frontend</span>
                             </div>
                             <div class="flex flex-wrap gap-3">
@@ -1145,7 +1310,7 @@
                     </div>
 
                     <!-- Project Card 5 -->
-                    <div class="reveal tilt-card group relative overflow-hidden rounded-xl gradient-border bg-gradient-to-b from-gray-900 to-gray-800 project-card-hover"
+                    <div class="reveal tilt-card group relative overflow-hidden rounded-xl bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border border-slate-200 dark:border-white/10 shadow-lg hover:shadow-xl transition-all duration-300 project-card-hover"
                         role="button" tabindex="0" aria-haspopup="dialog" data-project-id="automation">
                         <div class="relative">
                             <img src="https://source.unsplash.com/1200x800/?automation,robotics,software"
@@ -1154,15 +1319,26 @@
                             <div
                                 class="pointer-events-none absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-100">
                             </div>
+                            <div
+                                class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                                <span
+                                    class="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-slate-900 dark:text-white px-4 py-2 rounded-full font-medium text-sm shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 flex items-center gap-2 border border-slate-200 dark:border-white/10">
+                                    <i data-lucide="mouse-pointer-2" class="w-4 h-4 text-teal-500"></i> Click for
+                                    Details
+                                </span>
+                            </div>
                         </div>
                         <div class="p-6 project-info">
-                            <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-teal-300 transition-colors">
+                            <h3
+                                class="text-2xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-teal-600 dark:group-hover:text-teal-300 transition-colors">
                                 Automation Dashboard</h3>
-                            <p class="text-gray-400 mb-4">Automated manual attendance logging using Puppeteer, saving HR
+                            <p class="text-slate-600 dark:text-slate-400 mb-4">Automated manual attendance logging using
+                                Puppeteer, saving HR
                                 teams ~10 hours per week in data entry.</p>
 
                             <!-- Project Stats -->
-                            <div class="mb-4 text-xs text-gray-400 border-t border-gray-700 pt-3">
+                            <div
+                                class="mb-4 text-xs text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-slate-700 pt-3">
                                 <p class="mb-1"><strong class="text-teal-400">Problem:</strong> Repetitive, error-prone
                                     manual entry.</p>
                                 <p><strong class="text-teal-400">Outcome:</strong> 100% automated & error-free
@@ -1171,11 +1347,11 @@
 
                             <div class="flex flex-wrap gap-2 mb-4">
                                 <span
-                                    class="bg-red-500/15 text-red-300 text-xs font-semibold px-2.5 py-1 rounded-full">Puppeteer</span>
+                                    class="bg-slate-100 dark:bg-red-500/15 text-slate-700 dark:text-red-300 text-xs font-semibold px-2.5 py-1 rounded-full border border-slate-200 dark:border-transparent">Puppeteer</span>
                                 <span
-                                    class="bg-red-500/15 text-red-300 text-xs font-semibold px-2.5 py-1 rounded-full">Automation</span>
+                                    class="bg-slate-100 dark:bg-red-500/15 text-slate-700 dark:text-red-300 text-xs font-semibold px-2.5 py-1 rounded-full border border-slate-200 dark:border-transparent">Automation</span>
                                 <span
-                                    class="bg-red-500/15 text-red-300 text-xs font-semibold px-2.5 py-1 rounded-full">MongoDB</span>
+                                    class="bg-slate-100 dark:bg-red-500/15 text-slate-700 dark:text-red-300 text-xs font-semibold px-2.5 py-1 rounded-full border border-slate-200 dark:border-transparent">MongoDB</span>
                             </div>
                             <div class="flex flex-wrap gap-3">
                                 <a href="https://github.com/ManavVaria117/Bot_attendance" target="_blank"
@@ -1198,12 +1374,12 @@
         <div class="h-px w-full bg-gradient-to-r from-transparent via-purple-500/30 to-transparent my-0"></div>
 
         <!-- Contact Section -->
-        <section id="contact" class="py-20 bg-gray-900 scroll-mt-24">
+        <section id="contact" class="py-20 bg-transparent scroll-mt-24">
             <div class="container mx-auto px-6 text-center">
-                <h2 class="text-4xl font-bold text-white mb-4">Have a project or idea?</h2>
-                <p class="text-gray-300 mb-8 max-w-2xl mx-auto text-lg">
-                    Let’s build something that <strong class="text-teal-400">saves time</strong> or <strong
-                        class="text-white">scales revenue</strong>.
+                <h2 class="text-4xl font-bold text-slate-900 dark:text-white mb-4">Have a project or idea?</h2>
+                <p class="text-slate-600 dark:text-slate-300 mb-8 max-w-2xl mx-auto text-lg">
+                    Let’s build something that <strong class="text-teal-600 dark:text-teal-400">saves time</strong> or
+                    <strong class="text-slate-900 dark:text-white">scales revenue</strong>.
                 </p>
                 <div class="flex flex-col md:flex-row justify-center items-center gap-6">
                     <a href="https://wa.me/916351171448" target="_blank" rel="noopener noreferrer"
@@ -1217,7 +1393,7 @@
                     </a>
                 </div>
                 <!-- Trust Signal -->
-                <div class="mt-4 flex items-center justify-center gap-2 text-sm text-gray-400">
+                <div class="mt-4 flex items-center justify-center gap-2 text-sm text-slate-500 dark:text-gray-400">
                     <span class="relative flex h-2 w-2">
                         <span
                             class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
@@ -1229,31 +1405,33 @@
                 <div class="mt-8">
                     <a href="/ManavVariaResume.pdf" download="ManavVariaResume.pdf"
                         aria-label="Download Manav Varia's resume as PDF"
-                        class="bg-purple-600/20 ring-1 ring-purple-500/50 text-purple-200 font-bold py-3 px-8 rounded-full hover:bg-purple-600 hover:text-white transition-all duration-300 transform hover:scale-105 inline-flex items-center">
+                        class="bg-purple-600/10 dark:bg-purple-600/20 ring-1 ring-purple-500/50 text-purple-700 dark:text-purple-200 font-bold py-3 px-8 rounded-full hover:bg-purple-600 hover:text-white transition-all duration-300 transform hover:scale-105 inline-flex items-center">
                         <i data-lucide="download" class="mr-2 w-5 h-5"></i> Download Resume
                     </a>
                 </div>
                 <form id="contact-form"
-                    class="max-w-2xl mx-auto mt-10 text-left bg-gray-900/60 ring-1 ring-white/10 rounded-xl p-6"
+                    class="max-w-2xl mx-auto mt-10 text-left bg-white/50 dark:bg-slate-900/60 backdrop-blur-md ring-1 ring-slate-200 dark:ring-white/10 rounded-xl p-6 shadow-xl"
                     novalidate>
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
-                            <label for="name" class="block text-sm text-gray-400 mb-1">Name</label>
+                            <label for="name" class="block text-sm text-slate-500 dark:text-gray-400 mb-1">Name</label>
                             <input id="name" name="name" type="text"
-                                class="w-full rounded-lg bg-white/5 text-white px-4 py-3 ring-1 ring-white/10 focus:ring-2 focus:ring-teal-500 outline-none"
+                                class="w-full rounded-lg bg-white dark:bg-white/5 text-slate-900 dark:text-white px-4 py-3 ring-1 ring-slate-200 dark:ring-white/10 focus:ring-2 focus:ring-teal-500 outline-none"
                                 placeholder="Your name" required>
                         </div>
                         <div>
-                            <label for="email" class="block text-sm text-gray-400 mb-1">Email</label>
+                            <label for="email"
+                                class="block text-sm text-slate-500 dark:text-gray-400 mb-1">Email</label>
                             <input id="email" name="email" type="email"
-                                class="w-full rounded-lg bg-white/5 text-white px-4 py-3 ring-1 ring-white/10 focus:ring-2 focus:ring-teal-500 outline-none"
+                                class="w-full rounded-lg bg-white dark:bg-white/5 text-slate-900 dark:text-white px-4 py-3 ring-1 ring-slate-200 dark:ring-white/10 focus:ring-2 focus:ring-teal-500 outline-none"
                                 placeholder="you@example.com" required>
                         </div>
                     </div>
                     <div class="mt-6">
-                        <label for="message" class="block text-sm text-gray-400 mb-1">Message</label>
+                        <label for="message"
+                            class="block text-sm text-slate-500 dark:text-gray-400 mb-1">Message</label>
                         <textarea id="message" name="message" rows="5"
-                            class="w-full rounded-lg bg-white/5 text-white px-4 py-3 ring-1 ring-white/10 focus:ring-2 focus:ring-teal-500 outline-none"
+                            class="w-full rounded-lg bg-white dark:bg-white/5 text-slate-900 dark:text-white px-4 py-3 ring-1 ring-slate-200 dark:ring-white/10 focus:ring-2 focus:ring-teal-500 outline-none"
                             placeholder="Tell me a bit about your project..." required></textarea>
                     </div>
                     <div class="mt-6 flex items-center justify-between">
@@ -1269,8 +1447,8 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 py-6">
-        <div class="container mx-auto px-6 text-center text-gray-400">
+    <footer class="bg-slate-900/50 backdrop-blur-md border-t border-slate-800 py-6">
+        <div class="container mx-auto px-6 text-center text-slate-400">
             <p>&copy; 2024 Manav Varia. All Rights Reserved.</p>
         </div>
     </footer>
@@ -1288,32 +1466,35 @@
         <div class="modal-overlay" data-close="true"></div>
         <div class="modal-content">
             <button
-                class="modal-close inline-flex items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 text-white w-9 h-9 hover:bg-white/20 transition"
+                class="modal-close inline-flex items-center justify-center rounded-full bg-slate-100 dark:bg-white/10 ring-1 ring-slate-200 dark:ring-white/20 text-slate-500 dark:text-white w-9 h-9 hover:bg-slate-200 dark:hover:bg-white/20 transition"
                 aria-label="Close project modal" data-close="true"><i data-lucide="x" class="w-4 h-4"></i></button>
             <div class="p-6 md:p-8 modal-scroll">
-                <h3 id="project-title" class="text-2xl md:text-3xl font-extrabold text-white"></h3>
-                <p id="project-subtitle" class="text-gray-300 mt-1"></p>
+                <h3 id="project-title" class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white"></h3>
+                <p id="project-subtitle" class="text-slate-600 dark:text-gray-300 mt-1"></p>
                 <div class="modal-gallery mt-5">
                     <div class="modal-gallery-track" id="modal-gallery-track"></div>
                 </div>
                 <div class="modal-dots mt-3" id="modal-dots" role="tablist" aria-label="Project screenshots"></div>
                 <div class="grid md:grid-cols-2 gap-6 mt-8">
                     <div>
-                        <h4 class="text-white font-semibold mb-2">The Story</h4>
-                        <ul id="project-story" class="list-disc list-inside text-gray-300 space-y-2"></ul>
-                        <h4 class="text-white font-semibold mt-6 mb-2">What I Learned</h4>
-                        <ul id="project-learnings" class="list-disc list-inside text-gray-300 space-y-2"></ul>
+                        <h4 class="text-slate-900 dark:text-white font-semibold mb-2">The Story</h4>
+                        <ul id="project-story"
+                            class="list-disc list-inside text-slate-600 dark:text-gray-300 space-y-2"></ul>
+                        <h4 class="text-slate-900 dark:text-white font-semibold mt-6 mb-2">What I Learned</h4>
+                        <ul id="project-learnings"
+                            class="list-disc list-inside text-slate-600 dark:text-gray-300 space-y-2"></ul>
                     </div>
                     <div>
-                        <h4 class="text-white font-semibold mb-2">Solutions & Tech</h4>
-                        <ul id="project-tech" class="list-disc list-inside text-gray-300 space-y-2"></ul>
+                        <h4 class="text-slate-900 dark:text-white font-semibold mb-2">Solutions & Tech</h4>
+                        <ul id="project-tech" class="list-disc list-inside text-slate-600 dark:text-gray-300 space-y-2">
+                        </ul>
                         <div class="flex flex-wrap gap-3 mt-6">
                             <a id="project-demo" href="#" target="_blank" rel="noopener noreferrer"
                                 class="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-teal-500 to-purple-600 px-4 py-2 text-white font-semibold shadow-lg shadow-teal-500/20 hover:from-teal-400 hover:to-purple-500 transition">
                                 Live Demo <i data-lucide="external-link" class="w-4 h-4"></i>
                             </a>
                             <a id="project-source" href="#" target="_blank" rel="noopener noreferrer"
-                                class="inline-flex items-center gap-2 rounded-full bg-white/10 ring-1 ring-white/20 px-4 py-2 text-white hover:bg-white/20 transition">
+                                class="inline-flex items-center gap-2 rounded-full bg-slate-100 dark:bg-white/10 ring-1 ring-slate-200 dark:ring-white/20 px-4 py-2 text-slate-700 dark:text-white hover:bg-slate-200 dark:hover:bg-white/20 transition">
                                 Source Code <i data-lucide="github" class="w-4 h-4"></i>
                             </a>
                         </div>
@@ -1326,6 +1507,31 @@
     <script>
         lucide.createIcons();
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const rootElement = document.documentElement;
+
+        // Check local storage or system preference
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            rootElement.classList.add('dark');
+        } else {
+            rootElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (rootElement.classList.contains('dark')) {
+                rootElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                rootElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+            // Re-render icons if needed (Lucide usually handles this via CSS classes, but unique logic here ensures visibility)
+        });
 
         // Animate Numbers
         const animateNumbers = () => {
@@ -1467,7 +1673,10 @@
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-                card.style.background = `radial-gradient(200px 200px at ${x}px ${y}px, rgba(20,184,166,0.15), rgba(31, 41, 55, 0.5) 80%)`;
+                // Check if dark mode is active to adjust ripple color
+                const isDark = document.documentElement.classList.contains('dark');
+                const rippleColor = isDark ? 'rgba(31, 41, 55, 0.5)' : 'rgba(203, 213, 225, 0.5)'; // Slate-300 for light
+                card.style.background = `radial-gradient(200px 200px at ${x}px ${y}px, rgba(20, 184, 166, 0.15), ${rippleColor} 80%)`;
             });
             card.addEventListener('mouseleave', () => {
                 card.style.background = ''; // Resets to CSS default
@@ -1584,13 +1793,15 @@
         });
 
         // Header background on scroll and enhanced progress bar
-        const headerEl = document.querySelector('header');
+        const headerEl = document.querySelector('.fixed.w-full.z-50'); // Adjusted to match Navbar classes
         const handleHeaderScroll = () => {
+            if (!headerEl) return;
             const scrolled = window.scrollY > 40;
             headerEl.classList.toggle('scrolled', scrolled);
         };
         window.addEventListener('scroll', handleHeaderScroll);
-        handleHeaderScroll();
+        // Ensure DOM is ready or element exists before calling
+        if (headerEl) handleHeaderScroll();
 
         // Dynamic background canvas with subtle particles/constellations
         const bgCanvas = document.getElementById('bg-canvas');
@@ -1674,24 +1885,26 @@
             heroBlob.style.setProperty('--by', `${by}%`);
         });
 
-        // Project cards radial gradient follow and modal open
-        const projectCards = document.querySelectorAll('.project-card-hover');
-        projectCards.forEach((card) => {
+        // Project cards click handling via Event Delegation (MORE ROBUST)
+        document.addEventListener('click', (e) => {
+            const card = e.target.closest('[data-project-id]');
+            if (card) {
+                // Prevent opening modal if clicking a link or button inside the card
+                if (e.target.closest('a') || e.target.closest('button')) return;
+
+                const projectId = card.getAttribute('data-project-id');
+                openProjectModal(projectId);
+            }
+        });
+
+        // Restore Radial Gradient Effect
+        document.querySelectorAll('.project-card-hover').forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
                 const mx = ((e.clientX - rect.left) / rect.width) * 100;
                 const my = ((e.clientY - rect.top) / rect.height) * 100;
                 card.style.setProperty('--mx', `${mx}%`);
                 card.style.setProperty('--my', `${my}%`);
-            });
-            const projectId = card.getAttribute('data-project-id');
-            const open = () => openProjectModal(projectId);
-            card.addEventListener('click', open);
-            card.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    open();
-                }
             });
         });
 
