@@ -2406,8 +2406,11 @@
                 setLoading(true);
 
                 try {
-                    // Call Local Backend
-                    const res = await fetch('/api/chat', { // Relative path for Render deployment
+                    // Determine API URL based on environment
+                    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+                    const API_URL = isLocal ? 'http://localhost:3000/api/chat' : 'https://my-profile-7s2h.onrender.com/api/chat';
+
+                    const res = await fetch(API_URL, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ message: text })

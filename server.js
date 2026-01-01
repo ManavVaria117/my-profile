@@ -9,7 +9,6 @@ const port = process.env.PORT || 3000;
 // Middleware
 app.use(cors()); // Allow frontend to call backend
 app.use(express.json());
-app.use(express.static('public')); // Serve frontend files
 
 // Global Error Handlers to prevent silent crashes
 process.on('uncaughtException', (err) => {
